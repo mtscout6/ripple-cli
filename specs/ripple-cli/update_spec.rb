@@ -1,27 +1,32 @@
 require 'ripple-cli'
 
 module Ripple
-  describe Restore do
-    subject { Restore.new }
+  describe Update do
+    subject { Update.new }
 
     describe '#build_args' do
-      context 'with nil feeds' do
+      context 'with nil nuget' do
         it { subject.build_args.should eq '' }
       end
 
-      context 'with no feeds' do
-        before { subject.feeds = [] }
+      context 'with empty nuget' do
+        before { subject.nuget = '' }
         it { subject.build_args.should eq '' }
       end
 
-      context 'with one feed' do
-        before { subject.feeds = ['feed1'] }
-        it { subject.build_args.should eq '--feeds "feed1"' }
+      context 'with nuget' do
+        before { subject.nuget = 'some.nuget' }
+        it { subject.build_args.should eq '--nuget "some.nuget"' }
       end
 
-      context 'with multipe feeds' do
-        before { subject.feeds = ['feed1', 'feed2'] }
-        it { subject.build_args.should eq '--feeds "feed1#feed2"' }
+      context 'preview no' do
+        before { subject.preview = false }
+        it { subject.build_args.should eq '' }
+      end
+
+      context 'preview yes' do
+        before { subject.preview = true }
+        it { subject.build_args.should eq '--preview' }
       end
 
       context 'force no' do
@@ -86,13 +91,14 @@ module Ripple
 
       context 'with feeds, force, cache, all, and verbose' do
         before {
-          subject.feeds = ['feed1', 'feed2']
+          subject.nuget = 'some.nuget'
+          subject.preview = true
           subject.force = true
           subject.cache = 'some/cache'
           subject.all_solutions = true
           subject.verbose = true
         }
-        it { subject.build_args.should eq '--feeds "feed1#feed2" --force --cache "some/cache" --all --verbose' }
+        it { subject.build_args.should eq '--nuget "some.nuget" --preview --force --cache "some/cache" --all --verbose' }
       end
     end
   end
