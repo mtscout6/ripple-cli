@@ -6,8 +6,8 @@ require 'ripple-cli/version'
 Gem::Specification.new do |gem|
   gem.name          = "ripple-cli"
   gem.version       = Ripple::VERSION
-  gem.authors       = ["Matt Smith"]
-  gem.email         = ["mtscout6@gmail.com"]
+  gem.authors       = ["Matt Smith", "Ryan Rauh"]
+  gem.email         = ["mtscout6@gmail.com", "rauh.ryan@gmail.com"]
   gem.description   = %q{Quickly install ripple command line tools}
   gem.summary       = %q{installs the command line tool ripple}
   gem.homepage      = ""
